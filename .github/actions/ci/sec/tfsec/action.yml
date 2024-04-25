@@ -14,7 +14,7 @@ runs:
       shell: bash
     
     - name: Execute TFsec
-      run: tfseca
+      run: tfsec
       shell: bash   
 
     - name: Fail on Errors
