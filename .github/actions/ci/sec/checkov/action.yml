@@ -1,12 +1,8 @@
 name: 'Checkov'
 description: 'Execute Checkov' 
-branding:
-  icon: 'check-circle'
-  color: 'green'
 
-runs:
-  
-  using: composite
+runs:  
+  using: 'composite'
   steps:
 
     - name: Checkout
@@ -14,12 +10,14 @@ runs:
 
     - name: Install Checkov 
       run: | 
-            curl -fsSL https://raw.githubusercontent.com/bridgecrewio/checkov/v1.12.0/install.sh | bash -s
-    
-    - name: Run Checkov 
-      run: | 
-            checkov -d . --framework terraform 
+        curl -fsSL https://raw.githubusercontent.com/bridgecrewio/checkov/v1.12.0/install.sh | bash -s
+      shell: bash
 
+    - name: 'Run Checkov' 
+      run: | 
+        checkov -d . --framework terraform 
+      shell: bash 
+      
     - name: Fail on Errors
       if: ${{ steps.checkov.outputs.exit_code != 0 }}
       uses: actions/github-script@v6
