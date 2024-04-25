@@ -15,13 +15,10 @@ runs:
 
     - name: 'Run Checkov' 
       run: | 
-        checkov -d . --framework terraform 
+        checkov -d . --framework terraform --quiet --output-format sarif --output-file checkov.sarif
       shell: bash 
 
-    - name: Fail on Errors
-      if: ${{ steps.checkov.outputs.exit_code != 0 }}
-      uses: actions/github-script@v6
+    - name: Upload SARIF File
+      uses: github/codeql-action/upload-sarif@v3
       with:
-        script: |
-          core.setFailed(" Checkov found Errors!!!")
-          core.setFailed("${{ steps.checkov.outputs.stdout }}")
+        sarif_file: checkov.sarif
