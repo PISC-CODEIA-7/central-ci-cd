@@ -8,16 +8,12 @@ runs:
     - name: Checkout
       uses: actions/checkout@v3 
 
-    - name: Install Tfsec
+    - name: Install and execute Tfsec
       run: | 
         go install github.com/aquasecurity/tfsec/cmd/tfsec@latest
+        tfsec .
       shell: bash
     
-    - name: Execute TFsec
-      run: | 
-        tfsec .
-      shell: bash   
-
     - name: Fail on Errors
       if: ${{ steps.tfsec.outputs.exit_code != 0 }}
       uses: actions/github-script@v6
