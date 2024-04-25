@@ -15,7 +15,7 @@ runs:
 
     - name: 'Run Checkov' 
       run: | 
-        checkov -d . --framework terraform --quiet --output-format sarif --output-file checkov.sarif
+        checkov -d . --framework terraform --quiet -o sarif --output-file checkov.sarif
       shell: bash 
 
     - name: Upload SARIF File
