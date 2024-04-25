@@ -10,14 +10,14 @@ runs:
 
     - name: Install Checkov 
       run: | 
-        curl -fsSL https://raw.githubusercontent.com/bridgecrewio/checkov/v1.12.0/install.sh | bash -s
+        pip install checkov
       shell: bash
 
     - name: 'Run Checkov' 
       run: | 
         checkov -d . --framework terraform 
       shell: bash 
-      
+
     - name: Fail on Errors
       if: ${{ steps.checkov.outputs.exit_code != 0 }}
       uses: actions/github-script@v6
