@@ -9,7 +9,7 @@ runs:
       uses: actions/checkout@v3 
 
     - name: Tfsec
-      uses: tfsec/tfsec-sarif-action@main
+      uses: tfsec/tfsec-sarif-action@master
       with: 
         sarif_file: tfsec.sarif
       
