@@ -1,0 +1,26 @@
+name: 'TFSec Scan'
+description: 'Execute TFSec' 
+
+runs:  
+  using: 'composite'
+  steps:
+
+    - name: Checkout
+      uses: actions/checkout@v3 
+
+    - name: Install Tfsec
+      run: | 
+        curl -L "$(curl -s https://api.github.com/repos/tfsec/tfsec/releases/latest | grep -o -E "https://.+tfsec-linux-amd64")" -o tfsec
+        chmod +x tfsec
+      shell: bash
+    
+    - name: Execute TFsec
+      run: tfsec
+      shell: bash   
+
+    - name: Fail on Errors
+      if: ${{ steps.tfsec.outputs.exit_code != 0 }}
+      uses: actions/github-script@v6
+      with:
+        script: |
+          core.setFailed('TFsec found Errors!!!') 
