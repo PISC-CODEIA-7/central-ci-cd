@@ -10,13 +10,11 @@ runs:
 
     - name: Install Tfsec
       run: | 
-        apt update && apt upgrade
-        apt install golang-go -y
         go install github.com/aquasecurity/tfsec/cmd/tfsec@latest
       shell: bash
     
     - name: Execute TFsec
-      run: tfsec
+      run: tfseca
       shell: bash   
 
     - name: Fail on Errors
