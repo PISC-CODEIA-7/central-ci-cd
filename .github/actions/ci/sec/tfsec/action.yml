@@ -10,8 +10,9 @@ runs:
 
     - name: Install Tfsec
       run: | 
-        curl -L "$(curl -s https://api.github.com/repos/tfsec/tfsec/releases/latest | grep -o -E "https://.+tfsec-linux-amd64")" -o tfsec
-        chmod +x tfsec
+        apt update && apt upgrade
+        apt install golang-go -y
+        go install github.com/aquasecurity/tfsec/cmd/tfsec@latest
       shell: bash
     
     - name: Execute TFsec
