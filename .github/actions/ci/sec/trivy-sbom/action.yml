@@ -1,6 +1,11 @@
 name: Trivy Sbom
 description: 'Trivy Sbom'
 
+inputs:  
+  TOKEN_SEC:
+    description: 'Token secrets Sec'
+    required: true
+
 runs:
   using: composite
   steps:
@@ -15,7 +20,7 @@ runs:
       format: 'github'
       output: 'dependency-results.sbom.json'
       scan-ref: '.'
-      github-pat: ${{ secrets.TOKEN_SEC }}
+      github-pat: ${{ inputs.TOKEN_SEC }}
 
 
   
