@@ -1,0 +1,22 @@
+name: Trivy Sbom
+description: 'Trivy Sbom'
+
+runs:
+  using: composite
+  steps:
+
+  - name: Checkout
+    uses: actions/checkout@v3
+
+  - name: Trivy Sbom
+    uses: aquasecurity/trivy-action@master
+    with:
+      scan-type: 'fs'
+      format: 'github'
+      output: 'dependency-results.sbom.json'
+      scan-ref: '.'
+      github-pat: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+  
