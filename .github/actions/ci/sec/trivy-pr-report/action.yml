@@ -36,6 +36,6 @@ runs:
     shell: bash  
 
   - name: Trivy Scan and Report
-    uses: domstolene/tryvi-pr-report@v1 
+    uses: domstolene/trivy-pr-report@v1 
     with:
       github_token: ${{ inputs.GITHUB_TOKEN }}
