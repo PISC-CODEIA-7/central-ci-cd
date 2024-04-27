@@ -24,10 +24,10 @@ runs:
     run: |
       if [[ -s trivy.txt ]]; then
         {
-          echo "### Security Output ###"
+          echo "### Security Output"
           echo "<details><summary>Click to expand</summary>"
           echo ""
-          echo '```terrafom''
+          echo '```terraform'
           cat trivy.txt
           echo '```'
           echo "</details>"
