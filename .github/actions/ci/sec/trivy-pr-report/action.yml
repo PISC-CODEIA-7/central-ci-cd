@@ -1,0 +1,41 @@
+name: Trivy PR Report
+description: 'Scan Trivy with Pull Request Report'
+
+inputs:  
+  GITHUB_TOKEN:
+    description: 'Token secrets Sec'
+    required: true
+
+runs:
+  using: composite
+  steps:
+
+  - name: Checkout
+    uses: actions/checkout@v3
+
+  - name: Run Trivy Scanner
+    uses: aquasecurity/trivy-action@master
+    with:
+      scan-type: 'fs'
+      hide-progress: true
+      output: trivy.txt
+
+  - name: Publish Trivy Output to Summary
+    run: |
+      if [[ -s trivy.txt ]]; then
+        {
+          echo "### Security Output ###"
+          echo "<details><summary>Click to expand</summary>"
+          echo ""
+          echo '```terrafom''
+          cat trivy.txt
+          echo '```'
+          echo "</details>"
+        } >> $GITHUB_STEP_SUMMARY
+      fi
+    shell: bash  
+
+  - name: Trivy Scan and Report
+    uses: domstolene/tryvu-pr-report@v1 
+    with:
+      github_token: ${{ inputs.GITHUB_TOKEN }}
